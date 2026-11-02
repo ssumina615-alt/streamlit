@@ -1,150 +1,72 @@
-<br>
-
-<img src="https://user-images.githubusercontent.com/7164864/217935870-c0bc60a3-6fc0-4047-b011-7b4c59488c91.png" alt="Streamlit logo" style="margin-top:50px"></img>
-
-# Welcome to Streamlit 👋
-
-**A faster way to build and share data apps.**
-
-## What is Streamlit?
-
-Streamlit lets you transform Python scripts into interactive web apps in minutes, instead of weeks. Build dashboards, generate reports, or create chat apps. Once you’ve created an app, you can use our [Community Cloud platform](https://streamlit.io/cloud) to deploy, manage, and share your app.
-
-### Why choose Streamlit?
-
-- **Simple and Pythonic:** Write beautiful, easy-to-read code.
-- **Fast, interactive prototyping:** Let others interact with your data and provide feedback quickly.
-- **Live editing:** See your app update instantly as you edit your script.
-- **Open-source and free:** Join a vibrant community and contribute to Streamlit's future.
-
-## Installation
-
-Open a terminal and run:
-
-```bash
-$ pip install streamlit
-$ streamlit hello
-```
-
-If this opens our sweet _Streamlit Hello_ app in your browser, you're all set! If not, head over to [our docs](https://docs.streamlit.io/get-started) for specific installs.
-
-The app features a bunch of examples of what you can do with Streamlit. Jump to the [quickstart](#quickstart) section to understand how that all works.
-
-<img src="https://user-images.githubusercontent.com/7164864/217936487-1017784e-68ec-4e0d-a7f6-6b97525ddf88.gif" alt="Streamlit Hello" width=500 href="none"></img>
-
-## Quickstart
-
-### A little example
-
-Create a new file named `streamlit_app.py` in your project directory with the following code:
-```python
 import streamlit as st
+import time
 
-x = st.slider("Select a value")
-st.write(x, "squared is", x * x)
-```
+# Set up page styling
+st.set_page_config(page_title="Water Safety Predictor", page_icon="💧", layout="centered")
 
-Now run it to open the app!
-```
-$ streamlit run streamlit_app.py
-```
+st.title("💧 Water Safety Predictor Prototype")
+st.write("An interactive prototype for testing water portability metrics.")
 
-<img src="https://user-images.githubusercontent.com/7164864/215172915-cf087c56-e7ae-449a-83a4-b5fa0328d954.gif" width=300 alt="Little example"></img>
+st.info("💡 Running in **Prototype Mode** (Using standard water quality baseline guidelines).")
 
-### Give me more!
+# 1. User Input Form
+st.subheader("Enter Water Quality Metrics")
 
-Streamlit comes in with [a ton of additional powerful elements](https://docs.streamlit.io/develop/api-reference) to spice up your data apps and delight your viewers. Some examples:
+col1, col2 = st.columns(2)
 
-<table border="0">
-  <tr>
-    <td>
-      <a target="_blank" href="https://docs.streamlit.io/develop/api-reference/widgets">
-        <img src="https://user-images.githubusercontent.com/7164864/217936099-12c16f8c-7fe4-44b1-889a-1ac9ee6a1b44.png" style="max-height:150px; width:auto; display:block;">
-      </a>
-    </td>
-    <td>
-      <a target="_blank" href="https://docs.streamlit.io/develop/api-reference/data/st.dataframe">
-        <img src="https://user-images.githubusercontent.com/7164864/215110064-5eb4e294-8f30-4933-9563-0275230e52b5.gif" style="max-height:150px; width:auto; display:block;">
-      </a>
-    </td>
-    <td>
-      <a target="_blank" href="https://docs.streamlit.io/develop/api-reference/charts">
-        <img src="https://user-images.githubusercontent.com/7164864/215174472-bca8a0d7-cf4b-4268-9c3b-8c03dad50bcd.gif" style="max-height:150px; width:auto; display:block;">
-      </a>
-    </td>
-    <td>
-      <a target="_blank" href="https://docs.streamlit.io/develop/api-reference/layout">
-        <img src="https://user-images.githubusercontent.com/7164864/217936149-a35c35be-0d96-4c63-8c6a-1c4b52aa8f60.png" style="max-height:150px; width:auto; display:block;">
-      </a>
-    </td>
-    <td>
-      <a target="_blank" href="https://docs.streamlit.io/develop/concepts/multipage-apps">
-        <img src="https://user-images.githubusercontent.com/7164864/215173883-eae0de69-7c1d-4d78-97d0-3bc1ab865e5b.gif" style="max-height:150px; width:auto; display:block;">
-      </a>
-    </td>
-    <td>
-      <a target="_blank" href="https://streamlit.io/gallery">
-        <img src="https://user-images.githubusercontent.com/7164864/215109229-6ae9111f-e5c1-4f0b-b3a2-87a79268ccc9.gif" style="max-height:150px; width:auto; display:block;">
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td>Input widgets</td>
-    <td>Dataframes</td>
-    <td>Charts</td>
-    <td>Layout</td>
-    <td>Multi-page apps</td>
-    <td>Fun</td>
-  </tr>
-</table>
+with col1:
+    ph = st.number_input("pH Level (0.0 - 14.0)", min_value=0.0, max_value=14.0, value=7.2, step=0.1)
+    turbidity = st.number_input("Turbidity (NTU)", min_value=0.0, max_value=20.0, value=2.5, step=0.1)
+    dissolved_oxygen = st.number_input("Dissolved Oxygen (mg/L)", min_value=0.0, max_value=20.0, value=7.0, step=0.5)
 
+with col2:
+    tds = st.number_input("Total Dissolved Solids (ppm)", min_value=0.0, max_value=3000.0, value=300.0, step=10.0)
+    chlorine = st.number_input("Free Chlorine (mg/L)", min_value=0.0, max_value=10.0, value=1.5, step=0.1)
+    temperature = st.number_input("Temperature (°C)", min_value=0.0, max_value=50.0, value=22.0, step=0.5)
 
-Our vibrant creators community also extends Streamlit capabilities using  🧩 [Streamlit Components](https://streamlit.io/components).
-
-## Get inspired
-
-There's so much you can build with Streamlit:
-- 🤖  [LLMs & chatbot apps](https://streamlit.io/gallery?category=llms)
-- 🧬  [Science & technology apps](https://streamlit.io/gallery?category=science-technology)
-- 💬  [NLP & language apps](https://streamlit.io/gallery?category=nlp-language)
-- 🏦  [Finance & business apps](https://streamlit.io/gallery?category=finance-business)
-- 🗺  [Geography & society apps](https://streamlit.io/gallery?category=geography-society)
-- and more!
-
-**Check out [our gallery!](https://streamlit.io/gallery)** 🎈
-
-## Community Cloud
-
-Deploy, manage and share your apps for free using our [Community Cloud](https://streamlit.io/cloud)! Sign-up [here](https://share.streamlit.io/signup). <br><br>
-<img src="https://user-images.githubusercontent.com/7164864/214965336-64500db3-0d79-4a20-8052-2dda883902d2.gif" width="400"></img>
-
-## Resources
-
-- Explore our [docs](https://docs.streamlit.io) to learn how Streamlit works.
-- Ask questions and get help in our [community forum](https://discuss.streamlit.io).
-- Read our [blog](https://blog.streamlit.io) for tips from developers and creators.
-- Extend Streamlit's capabilities by installing or creating your own [Streamlit Components](https://streamlit.io/components).
-- Help others find and play with your app by using the Streamlit GitHub badge in your repository:
-```markdown
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](URL_TO_YOUR_APP)
-```
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/streamlit/roadmap)
-
-## Contribute
-
-🎉 Thanks for your interest in helping improve Streamlit! 🎉
-
-We have paused accepting pull requests from outside the Streamlit maintainer team. You can still
-make a valuable contribution by [reporting bugs](https://github.com/streamlit/streamlit/issues/new?template=bug_report.yml),
-[requesting features](https://github.com/streamlit/streamlit/issues/new?template=feature_request.yml),
-[improving or upvoting existing issues](https://github.com/streamlit/streamlit/issues?q=is%3Aissue%20state%3Aopen%20sort%3Areactions-%2B1-desc),
-[commenting on open specs](https://github.com/streamlit/streamlit/issues?q=state%3Aopen%20label%3Achange%3Aspec), creating
-[custom components](https://docs.streamlit.io/develop/concepts/custom-components/components-v2),
-and contributing to [streamlit-extras](https://github.com/arnaudmiribel/streamlit-extras).
-
-Read our [contribution guide](https://github.com/streamlit/streamlit/blob/develop/CONTRIBUTING.md)
-for details.
-
-## License
-
-Streamlit is completely free and open-source and licensed under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license.
+# 2. Trigger Prediction
+if st.button("Predict Safety Status", type="primary"):
+    
+    # Visual loading status for user experience
+    with st.spinner('Analyzing metrics...'):
+        time.sleep(0.8) # Simulate AI processing time
+    
+    st.write("---")
+    st.subheader("Prediction Results")
+    
+    # 3. Baseline Validation Rules (Simulating AI Classification)
+    # Safe ranges based on general standard water guidelines:
+    # pH: 6.5 - 8.5 | Turbidity: < 5.0 NTU | TDS: < 500 ppm | Chlorine: 0.2 - 4.0 mg/L
+    
+    is_ph_safe = 6.5 <= ph <= 8.5
+    is_turbidity_safe = turbidity <= 5.0
+    is_tds_safe = tds <= 500.0
+    is_chlorine_safe = 0.2 <= chlorine <= 4.0
+    
+    # Calculate a mock confidence score based on how many parameters pass
+    metrics = [is_ph_safe, is_turbidity_safe, is_tds_safe, is_chlorine_safe]
+    passed_metrics = sum(metrics)
+    
+    # Safe if most vital parameters pass
+    if passed_metrics >= 3:
+        confidence = 75.0 + (passed_metrics * 5.5)
+        if confidence > 100.0: confidence = 99.4
+        
+        st.success(f"✅ **Water appears SAFE for consumption!**")
+        st.metric(label="AI Confidence Score", value=f"{confidence:.1f}%")
+        
+        # Educational feedback
+        st.write("The tested parameters fall within acceptable baseline parameters for safe drinking water.")
+    else:
+        confidence = 65.0 + ((4 - passed_metrics) * 8.0)
+        if confidence > 100.0: confidence = 98.7
+        
+        st.error(f"❌ **Water is flagged as UNSAFE!**")
+        st.metric(label="AI Risk Confidence", value=f"{confidence:.1f}%")
+        
+        # Dynamic warning details to show the prototype works logically
+        st.warning("⚠️ **Flagged Issues:**")
+        if not is_ph_safe: st.write("- pH level is outside the optimal 6.5–8.5 range.")
+        if not is_turbidity_safe: st.write("- Turbidity is too high (Water is too cloudy).")
+        if not is_tds_safe: st.write("- Total Dissolved Solids exceed recommended levels.")
+        if not is_chlorine_safe: st.write("- Chlorine content is outside safe disinfection limits.")
